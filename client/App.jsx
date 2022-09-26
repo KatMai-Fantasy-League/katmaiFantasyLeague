@@ -1,8 +1,9 @@
 import React from 'react';
+import './stylesheets/app.css';
 
 function App() {
   return (
-    <div class='bg-gray-100'>
+    <div className='bg-gray-100'>
       <h1>Hello World</h1>
     </div>
   );
