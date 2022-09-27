@@ -10,9 +10,9 @@ function LayOut({ children }) {
   return (
     <div className='w-full' style={divStyle}>
       <NavBar />
-      <div className='mx-auto w-7/12 h-screen bg-white'>
+      <div className='mx-auto w-full md:w-7/12 h-screen bg-white'>
         <main>
-          <div className='p-5 text-sm font-medium'>{children}</div>
+          <div className='p-5 text-lg font-medium lg:text-sm'>{children}</div>
         </main>
       </div>
     </div>
