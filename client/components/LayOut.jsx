@@ -12,7 +12,7 @@ function LayOut({ children }) {
       <NavBar />
       <div className='mx-auto w-7/12 h-screen bg-white'>
         <main>
-          <div className='p-5'>{children}</div>
+          <div className='p-5 text-sm font-medium'>{children}</div>
         </main>
       </div>
     </div>
