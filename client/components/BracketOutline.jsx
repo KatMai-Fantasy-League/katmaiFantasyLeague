@@ -8,8 +8,6 @@ import {
 } from 'react-brackets';
 import React from 'react';
 
-import { rounds } from '../data/currentRounds';
-
 const CustomSeed = ({ seed, breakpoint, roundIndex, seedIndex, props }) => {
   // breakpoint passed to Bracket component
   // to check if mobile view is triggered or not
@@ -27,7 +25,7 @@ const CustomSeed = ({ seed, breakpoint, roundIndex, seedIndex, props }) => {
       >
         <div>
           <SeedTeam>{seed.teams[0]?.name}</SeedTeam>
-          <SeedTeam>{seed.teams[1]?.name}</SeedTeam>
+          {seed.teams[1] && <SeedTeam>{seed.teams[1]?.name}</SeedTeam>}
         </div>
       </SeedItem>
     </Seed>
@@ -36,7 +34,6 @@ const CustomSeed = ({ seed, breakpoint, roundIndex, seedIndex, props }) => {
 
 const BracketOutline = (props) => {
   const { myBracket } = props;
-
   return <Bracket rounds={myBracket} renderSeedComponent={CustomSeed} />;
 };
 

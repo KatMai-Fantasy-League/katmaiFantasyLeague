@@ -7,7 +7,7 @@ import LayOut from './components/LayOut';
 import LoginPage from './components/pages/LoginPage';
 import MyBracket from './components/pages/MyBracket';
 import CurrentBracket from './components/pages/CurrentBracket';
-import { rounds } from './data/currentRounds';
+import { rounds } from './data/myCurrentRounds';
 
 function App() {
   const [myBracket, setMyBracket] = useState(rounds);
