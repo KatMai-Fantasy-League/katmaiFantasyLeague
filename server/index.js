@@ -1,11 +1,22 @@
 const path = require('path');
 const express = require('express');
-
 const app = express();
+const authenticator = require("./auth/authenticator")(userDB);
+const routes = require("./auth/routes")(
+    express.Router(),
+    app,
+    authenticator
+);
+
 const PORT = 3000;
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(app.oauth.errorHandler());
+app.use("/auth", routes);
+app.use("/test", testAPIRoutes);
 
 //imported controllers
-const loginControllers = require('../server/controllers/loginControllers');
+const loginControllers = require('./controllers/loginControllers');
 
 //serve index.html file
 app.get('/', (req, res) => {
@@ -13,8 +24,8 @@ app.get('/', (req, res) => {
 });
 
 //routers
-const myBracketRouter = require('../server/routes/myBracketRoute');
-const resultsBracketRouter = require('../server/routes/resultBracketRoute'); 
+const myBracketRouter = require('./routes/myBracketRoute');
+const resultsBracketRouter = require('./routes/resultBracketRoute'); 
 
 //SIGN UP/LOGIN Routes 
 app.post('/signup', loginControllers.createUser, (req, res) => {
@@ -59,4 +70,4 @@ app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 });
 
-module.exports = app;
+module.exports = app, router;

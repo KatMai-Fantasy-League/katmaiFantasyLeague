@@ -1,5 +1,7 @@
-const db = require('../models/models')
+const db = require('../models/bracketModel')
 const jwt = require('jsonwebtoken')
+
+
 
 const loginControllers = {}; 
 
