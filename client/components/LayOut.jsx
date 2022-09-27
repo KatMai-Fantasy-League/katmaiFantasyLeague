@@ -11,7 +11,9 @@ function LayOut({ children }) {
     <div className='w-full' style={divStyle}>
       <NavBar />
       <div className='mx-auto w-7/12 h-screen bg-white'>
-        <main>{children}</main>
+        <main>
+          <div className='p-5'>{children}</div>
+        </main>
       </div>
     </div>
   );
