@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function NavLink({ children }) {
   return (
-    <li className='block px-3 text-gray-400 rounded hover:bg-gray-100 hover:text-white hover:bg-transparent border-0 p-0'>
+    <li className='block px-3 text-white rounded hover:underline hover:bg-transparent border-0 p-0'>
       {children}
     </li>
   );
