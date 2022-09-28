@@ -5,7 +5,7 @@ const bearController = {};
 bearController.getBears = (req, res, next) => {
   console.log('in bearController.getBears');
 
-  const query = `SELECT * FROM bears`;
+  const query = `SELECT * FROM bears ORDER BY id`;
 
   db.query(query)
     .then((result) => {
