@@ -1,10 +1,11 @@
 const path = require('path');
 const express = require('express');
-const apiRouter = require('./routes/api');
+const dotenv = require('dotenv').config();
+
 
 const app = express();
 const PORT = 3000;
-
+app.use(express.json());
 var dir = path.join(__dirname, 'client');
 
 // serve static assets
@@ -12,12 +13,15 @@ app.use(express.static(dir));
 
 //serve index.html file
 app.get('/', (req, res) => {
-  // console.log(path.join(__dirname, '../client/index.html'));
   return res.status(200).sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-// use api, go to apirouter
+//routers
+const apiRouter = require('./routes/api');
+const loginRouter = require('./routes/loginRoute'); 
+
 app.use('/api', apiRouter);
+app.use('/login', loginRouter); 
 
 //unknown route handler
 app.use('*', (req, res) => {
@@ -40,4 +44,4 @@ app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 });
 
-module.exports = app;
+module.exports =  app;
