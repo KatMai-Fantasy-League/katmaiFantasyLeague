@@ -1,8 +1,8 @@
 const path = require('path');
 const express = require('express');
+const dotenv = require('dotenv').config();
 
 const app = express();
-const session = require('express-session'); 
 const PORT = 3000;
 
 var dir = path.join(__dirname, 'client');
@@ -16,15 +16,11 @@ app.get('/', (req, res) => {
 });
 
 //routers
-const myBracketRouter = require('./routes/myBracketRoute');
-const resultsBracketRouter = require('./routes/resultBracketRoute'); 
+const apiRouter = require('./routes/api');
+const loginRouter = require('./routes/loginRoute'); 
 
-app.use('/myBracket', myBracketRouter);
-app.use('/resultsBracket', resultsBracketRouter);
-
-
-// use api, go to apirouter
 app.use('/api', apiRouter);
+app.use('/login', loginRouter); 
 
 //unknown route handler
 app.use('*', (req, res) => {
@@ -47,4 +43,4 @@ app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 });
 
-module.exports = { app, router };
+module.exports =  app;

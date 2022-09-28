@@ -1,15 +1,41 @@
 const db = require('../models/bracketModel')
 const jwt = require('jsonwebtoken')
 
-
-
 const loginControllers = {}; 
 
+loginControllers.confirmGoogleToken = (req, res, next) => {
+    try { 
+      console.log('ENTERED confirmGoogleToken');
+      console.log('object received in confirmGoogleToken is: ', req,body)
+      
+      //first confirm received token has the current issuer and client ID 
+      const iss = req.body.iss; 
+      const aud = req.body.aud; 
+      const username = req.body.email
 
-loginControllers.createUser =  (req, res, next) => {
+      if (iss === process.env.GOOG_ISS && aud === GOOG_AUD) {
+        res.locals.username = username; 
+        return next(); 
+      } else {
+        next({
+            log: 'Error during login: unauthorized user', 
+            message: {err: 'Error occuered in confirmGoogleToken'}
+        })
+      }
+    } catch {
+      return next({
+        log: 'Error in confirmGoogleToken',
+        message: {err: 'Error occured in confirmGoogleToken'},
+    });
+  }
+}; 
+
+
+loginControllers.verifyUser =  (req, res, next) => {
     try{
-      console.log('ENTERED CREATE USER IN LOGIN CONTROLLERS'); 
-      const { username } = req.body.username; 
+      console.log('ENTERED verify USER IN LOGIN CONTROLLERS'); 
+      
+      const { username } = res.locals;
 
       //check is User exists already
       const values = [username]; 
@@ -19,6 +45,7 @@ loginControllers.createUser =  (req, res, next) => {
         .then( (response) => { 
             if (response) { 
                 console.log("response from checkForUserQuery is: ", response); 
+                //need to save userID to res.locals to be used when creating cookie
                 // res.locals.userID = response.
                 return next()
             } else {
@@ -29,61 +56,32 @@ loginControllers.createUser =  (req, res, next) => {
       });
     } catch {
       return next({
-        log: 'Error in createUser',
-        message: {err: 'Error occured in createUser'},
+        log: 'Error in verifyUser',
+        message: {err: 'Error occured in verifyUser'},
     });
   }
 }
 
 
+
 loginControllers.createToken = (req, res, next) => {
-    try{
-      console.log('ENTERED CREATE TOKEN');
-
-
-      next();
-    } catch {
-      return next({
-        log: 'Error in createToken',
-        message: {err: 'Error occured in createToken'},
-    });
-    }
-}
-
-loginControllers.verifyToken = (req, res, next) => {
     try { 
-      console.log('ENTERED VERIFY TOKEN');
-      next(); 
+      
+        const { userID } = res.locals; 
+        
+        jwt.sign({userID}, process.env.JWT_SECRET, { expiresIn: '8h'}, (err, token) => {
+          res.locals.myToken = {token};
+          console.log('TOKEN IS ', token);
+          //make sure the cookie has the userID for future HTTP/API requests 
+          res.cookie('authorization', token, { HttpOnly: true});
+          next();
+        });
     } catch {
       return next({
         log: 'Error in verifyToken',
         message: {err: 'Error occured in verifyToken'},
     });
   }
-}
-
-loginControllers.checkForToken = (req, res, next) => {
-    try{
-      console.log('ENTERED CHECK FOR TOKEN IN LOGIN CONTROLLERS');
-      next();
-    } catch {
-      return next({
-        log: 'Error in checkForToken',
-        message: {err: 'Error occured in checkForToken'},
-    });
-  }
-}
-
-loginControllers.verifyUser = (req, res, next) => {
-    try {
-      console.log('ENTERED VERIFY USER IN LOGIN CONTROLLERS');
-      next();
-    } catch {
-      return next({
-        log: 'Error in verifyUser',
-        message: {err: 'Error occured in verifyUser'},
-    });
-    }
 }
 
 
