@@ -5,6 +5,7 @@ import './stylesheets/app.css';
 
 import LayOut from './components/LayOut';
 import LoginPage from './components/pages/LoginPage';
+import Home from './components/pages/Home';
 import MyBracket from './components/pages/MyBracket';
 import CurrentBracket from './components/pages/CurrentBracket';
 import { convertFromSQL } from './utils/sqlConvertFrom';
@@ -36,6 +37,7 @@ function App() {
       <LayOut>
         <Routes>
           <Route path='/' element={<LoginPage />}></Route>
+          <Route path='/home' element={<Home />}></Route>
           <Route
             path='/myBracket'
             element={

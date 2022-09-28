@@ -5,6 +5,11 @@ const apiRouter = require('./routes/api');
 const app = express();
 const PORT = 3000;
 
+var dir = path.join(__dirname, 'client');
+
+// serve static assets
+app.use(express.static(dir));
+
 //serve index.html file
 app.get('/', (req, res) => {
   // console.log(path.join(__dirname, '../client/index.html'));

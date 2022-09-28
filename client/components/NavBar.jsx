@@ -19,6 +19,9 @@ function NavBar() {
               <Link to='/'>Sign In/Sign Up</Link>
             </NavLink>
             <NavLink>
+              <Link to='/home'>Home</Link>
+            </NavLink>
+            <NavLink>
               <Link to='/myBracket'>My Bracket</Link>
             </NavLink>
             <NavLink>
