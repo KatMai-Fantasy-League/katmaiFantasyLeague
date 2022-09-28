@@ -7,7 +7,7 @@ router.post('/',
   loginControllers.verifyUser,
   loginControllers.createToken, 
    (req, res) => {
-  res.redirect('http://www.google.com');  
+  res.redirect('/home');  
 });
 
 module.exports = router; 
