@@ -14,43 +14,52 @@ function Home() {
       <h2 className='text-5xl font-bold'>Home</h2>
       <br />
       <br />
-      <p className='leading-7 text-justify'>
+      <div className='leading-7 text-justify'>
         <h3 className='text-3xl font-bold'>Why fat matters</h3>
         <br />
-        From its humble beginnings as Fat Bear Tuesday in 2014 to nearly 800,000
-        votes cast last year in 2021, celebrating fat bears and Katmai's healthy
-        ecosystem has since become a tradition. For bears, fat equals survival.
-        Each winter, bears enter the den where they will not eat or drink until
-        they emerge in spring. During this time, they may lose up to one-third
-        of their body weight as they rely solely on their fat reserves. Survival
-        depends on eating a year's worth of food in six months.
+        <p>
+          From its humble beginnings as Fat Bear Tuesday in 2014 to nearly
+          800,000 votes cast last year in 2021, celebrating fat bears and
+          Katmai's healthy ecosystem has since become a tradition. For bears,
+          fat equals survival. Each winter, bears enter the den where they will
+          not eat or drink until they emerge in spring. During this time, they
+          may lose up to one-third of their body weight as they rely solely on
+          their fat reserves. Survival depends on eating a year's worth of food
+          in six months.
+        </p>
         <br />
         <br />
-        At Katmai, bears are drawn to the large number of salmon readily
-        available from roughly late June through September. Salmon have long
-        since been the lifeblood of the area, supporting Katmai's people, bears
-        and other animals. Fat bears exemplify the richness of this area, a wild
-        region that is home to more brown bears than people and the largest,
-        healthiest runs of sockeye salmon left on the planet. How it works
-        Rangers create a March-Madness style bracket pitting individual bears
-        against each other. The public then votes to see who will advance each
-        round. Voting takes place over several days on www.fatbearweek.org.
-        People may vote using any criteria they see fit. In the end, one bear
-        will reign supreme.
+        <p>
+          At Katmai, bears are drawn to the large number of salmon readily
+          available from roughly late June through September. Salmon have long
+          since been the lifeblood of the area, supporting Katmai's people,
+          bears and other animals. Fat bears exemplify the richness of this
+          area, a wild region that is home to more brown bears than people and
+          the largest, healthiest runs of sockeye salmon left on the planet. How
+          it works Rangers create a March-Madness style bracket pitting
+          individual bears against each other. The public then votes to see who
+          will advance each round. Voting takes place over several days on
+          www.fatbearweek.org. People may vote using any criteria they see fit.
+          In the end, one bear will reign supreme.
+        </p>
         <br />
         <br />
         <h3 className='text-3xl font-bold'>Give me the tl;dr</h3>
         <br />
-        Rangers create a march-madness style bracket pitting individual bears
-        against each other. The public then votes to see who will advance each
-        round. Voting takes place over several days on www.fatbearweek.org.
+        <p>
+          Rangers create a march-madness style bracket pitting individual bears
+          against each other. The public then votes to see who will advance each
+          round. Voting takes place over several days on www.fatbearweek.org.
+        </p>
         <br />
         <br />
-        And now...you can create your own Katmai Fat Bear Fantasy Brackets{' '}
+        <p>
+          And now...you can create your own Katmai Fat Bear Fantasy Brackets{' '}
+        </p>
         <span className='text-2xl'>*Mind Explosions*</span>
         <br />
         <br />
-      </p>
+      </div>
       <h3 className='text-3xl font-bold'>Show me the bears!</h3>
       <br />
       <br />
