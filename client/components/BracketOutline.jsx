@@ -34,7 +34,13 @@ const CustomSeed = ({ seed, breakpoint, roundIndex, seedIndex, props }) => {
 
 const BracketOutline = (props) => {
   const { myBracket } = props;
-  return <Bracket rounds={myBracket} renderSeedComponent={CustomSeed} />;
+  return (
+    <Bracket
+      rounds={myBracket}
+      renderSeedComponent={CustomSeed}
+      mobileBreakpoint={1550}
+    />
+  );
 };
 
 export default BracketOutline;

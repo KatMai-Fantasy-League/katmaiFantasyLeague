@@ -20,12 +20,14 @@ function BracketForm(props) {
   const matchupSelections = myBracket[rdIdx].seeds.map((item, idx) => {
     const handleChange = (e) => {
       const newBracket = [...myBracket];
+      let toCheck;
 
       if (e.target.value) {
         myBracket[rdIdx].seeds[idx].teams.forEach((ele) => {
           if (ele.name === e.target.value) {
             ele.winner = true;
           } else {
+            toCheck = ele.name;
             ele.winner = false;
           }
         });
@@ -37,6 +39,17 @@ function BracketForm(props) {
         myBracket[rdIdx + 1].seeds[Math.floor(idx / 2)].teams[
           idx % 2 === 0 ? 0 : 1
         ].winner = false;
+
+        for (let i = rdIdx + 2; i < myBracket.length; i++) {
+          for (let j = 0; j < myBracket[i].seeds.length; j++) {
+            for (let k = 0; k < myBracket[i].seeds[j].teams.length; k++) {
+              if (myBracket[i].seeds[j].teams[k].name === toCheck) {
+                myBracket[i].seeds[j].teams[k].name = '';
+                myBracket[i].seeds[j].teams[k].winner = false;
+              }
+            }
+          }
+        }
 
         setMyBracket(newBracket);
       }
