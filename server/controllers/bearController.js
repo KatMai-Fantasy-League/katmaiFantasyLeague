@@ -44,4 +44,25 @@ bearController.getMyBracket = (req, res, next) => {
     });
 };
 
+bearController.getResultsBracket = (req, res, next) => {
+  console.log('in bearController.getResultsBracket');
+
+  const query = `SELECT * FROM resultsbrackets ORDER BY rd`;
+
+  db.query(query)
+    .then((result) => {
+      res.locals.resultsBracket = result.rows;
+      return next();
+    })
+    .catch((err) => {
+      return next({
+        log: 'Express error handler caught unknown middleware error',
+        status: 400,
+        message: {
+          err: 'error in bearController.getResultsBracket - issue getting ResultsBracket',
+        },
+      });
+    });
+};
+
 module.exports = bearController;

@@ -13,24 +13,33 @@ import { convertFromSQL } from './utils/sqlConvertFrom';
 const initialState = [
   {
     title: 'Round one',
-    seeds: [],
+    seeds: [
+      { id: 'r0p0', date: new Date().toDateString(), teams: [{}, {}] },
+      { id: 'r0p1', date: new Date().toDateString(), teams: [{}, {}] },
+      { id: 'r0p2', date: new Date().toDateString(), teams: [{}, {}] },
+      { id: 'r0p3', date: new Date().toDateString(), teams: [{}, {}] },
+    ],
   },
   {
     title: 'Round two',
-    seeds: [],
+    seeds: [
+      { id: 'r1p0', date: new Date().toDateString(), teams: [{}, {}] },
+      { id: 'r1p1', date: new Date().toDateString(), teams: [{}, {}] },
+    ],
   },
   {
     title: 'Finals',
-    seeds: [],
+    seeds: [{ id: 'r2p0', date: new Date().toDateString(), teams: [{}, {}] }],
   },
   {
     title: 'Winner',
-    seeds: [],
+    seeds: [{ id: 'r3p0', date: new Date().toDateString(), teams: [{}] }],
   },
 ];
 
 function App() {
   const [myBracket, setMyBracket] = useState(initialState);
+  const [resultsBracket, setResultsBracket] = useState(initialState);
 
   return (
     <BrowserRouter>
@@ -44,7 +53,15 @@ function App() {
               <MyBracket myBracket={myBracket} setMyBracket={setMyBracket} />
             }
           ></Route>
-          <Route path='/currentBracket' element={<CurrentBracket />}></Route>
+          <Route
+            path='/currentBracket'
+            element={
+              <CurrentBracket
+                resultsBracket={resultsBracket}
+                setResultsBracket={setResultsBracket}
+              />
+            }
+          ></Route>
         </Routes>
       </LayOut>
     </BrowserRouter>
