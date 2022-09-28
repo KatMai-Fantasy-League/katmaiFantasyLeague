@@ -1,45 +1,65 @@
 const path = require('path');
-
-
-// Database imports
-const db = require("./models/pgWrapper");
-const tokenDB = require("./models/tokenModel")(db);
-const userDB = require("./models/userModel")(db);
-
-// OAuth imports
-const oAuthService = require("./auth/tokenService")(userDB, tokenDB);
-const oAuth2Server = require("node-oauth2-server");
-
 const express = require('express');
-
 const app = express();
-app.oauth = oAuth2Server({
-    model: oAuthService,
-    grants: ["password"],
-    debug: true,
-});
-const testAPIService = require("./test/testAPIService.js");
-const testAPIRoutes = require("./test/testAPIRoutes.js")(
-    express.Router(),
-    app,
-    testAPIService
-);
-const authenticator = require("./auth/authenticator")(userDB);
-const routes = require("./auth/routes")(
-    express.Router(),
-    app,
-    authenticator
-);
-
+const session = require('express-session'); 
 const PORT = 3000;
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
-app.use(app.oauth.errorHandler());
-app.use("/auth", routes);
-app.use("/test", testAPIRoutes);
 
-//imported controllers
-const loginControllers = require('./controllers/loginControllers');
+// app.set('view engine', 'ejs'); 
+
+// app.use(session({
+//   resave: false,
+//   saveUninitialized: true,
+//   secret: 'SECRET' 
+// }));
+
+// app.get('/', function(req, res) {
+//   res.render('pages/auth');
+// });
+
+// /*  PASSPORT SETUP  */
+// const passport = require('passport');
+// let userProfile;
+
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+// app.get('/success', (req, res) => res.send(userProfile));
+// app.get('/error', (req, res) => res.send("error logging in"));
+
+// passport.serializeUser(function(user, cb) {
+//   cb(null, user);
+// });
+
+// passport.deserializeUser(function(obj, cb) {
+//   cb(null, obj);
+// });
+
+// /*  Google AUTH  */
+// const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+// const GOOGLE_CLIENT_ID = '599848243160-fh9f74vresv83v5g9oec13q73vnq1mnv.apps.googleusercontent.com';
+// const GOOGLE_CLIENT_SECRET = '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';
+// passport.use(new GoogleStrategy({
+//     clientID: GOOGLE_CLIENT_ID,
+//     clientSecret: GOOGLE_CLIENT_SECRET,
+//     callbackURL: "http://localhost:3000/auth/google/callback"
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//       userProfile=profile;
+//       return done(null, userProfile);
+//   }
+// ));
+ 
+// app.get('/auth/google', 
+//   passport.authenticate('google', { scope : ['profile', 'email'] }));
+ 
+// app.get('/auth/google/callback', 
+//   passport.authenticate('google', { failureRedirect: '/error' }),
+//   function(req, res) {
+//     // Successful authentication, redirect success.
+//     res.redirect('/success');
+//   });
+
+
 
 //serve index.html file
 app.get('/', (req, res) => {
@@ -50,26 +70,7 @@ app.get('/', (req, res) => {
 const myBracketRouter = require('./routes/myBracketRoute');
 const resultsBracketRouter = require('./routes/resultBracketRoute'); 
 
-// //SIGN UP/LOGIN Routes 
-// app.post('/signup', loginControllers.createUser, (req, res) => {
-//   console.log('WE HAVE ENTERED SIGN UP ROUTE HANDLER');
-//   return res.status(200);  //redirect to login
-// });
-
-// // this is the endpoint for logging in
-// app.post('/login', loginControllers.verifyUser, loginControllers.createToken, (req, res) => {
-//   console.log('ENTERED LOGIN ROUTE HANDLER');
-//   return res.status(200); //redirect to homepage
-// });
-
-// // this is a template for authentication on any of our homepage routes 
-// app.get('/afterLogin', loginControllers.checkForToken, loginControllers.verifyToken, (req, res) => {
-//   console.log('ENTERED AFTER LOGIN ROUTE HANDLER');
-//   res.status(200);
-// });
-
 app.use('/myBracket', myBracketRouter);
-
 app.use('/resultsBracket', resultsBracketRouter);
 
 //unknown route handler

@@ -6,10 +6,27 @@ const jwt = require('jsonwebtoken')
 const loginControllers = {}; 
 
 
-loginControllers.createUser = (req, res, next) => {
+loginControllers.createUser =  (req, res, next) => {
     try{
-      console.log('ENTERED CREATE USER IN LOGIN CONTROLLERS');  
-      next();
+      console.log('ENTERED CREATE USER IN LOGIN CONTROLLERS'); 
+      const { username } = req.body.username; 
+
+      //check is User exists already
+      const values = [username]; 
+      const checkForUserQuery = `SELECT * FROM users WHERE username=('$1') RETURNING *`;
+   
+      db.query(checkForUserQuery, values)
+        .then( (response) => { 
+            if (response) { 
+                console.log("response from checkForUserQuery is: ", response); 
+                // res.locals.userID = response.
+                return next()
+            } else {
+                const createNewUserQuery = `INSERT INTO users (username) VALUES ('$1') RETURNING * `;
+                db.query(query, values)
+                  .then( (response) => next());
+            }
+      });
     } catch {
       return next({
         log: 'Error in createUser',
@@ -18,21 +35,12 @@ loginControllers.createUser = (req, res, next) => {
   }
 }
 
-loginControllers.updateUser = (req, res, next) => {
-    try{
-      console.log('ENTERED UPDATE USER IN LOGIN CONTROLLERS');
-      next();
-    } catch {
-      return next({
-        log: 'Error in updateUser',
-        message: {err: 'Error occured in updateUser'},
-    });
-  }
-}
 
 loginControllers.createToken = (req, res, next) => {
     try{
       console.log('ENTERED CREATE TOKEN');
+
+
       next();
     } catch {
       return next({
@@ -78,16 +86,7 @@ loginControllers.verifyUser = (req, res, next) => {
     }
 }
 
-loginControllers.forgotPassword = (req, res, next) => {
-    try{
-      console.log('ENTERED FORGOT PASSWORD IN LOGIN CONTROLLERS');
-      next();
-    } catch {
-      return next({
-        log: 'Error in forgotPassword',
-        message: {err: 'Error occured in forgotPassword'},
-    });
-  }
-}
+
 
 module.exports = loginControllers;
+
