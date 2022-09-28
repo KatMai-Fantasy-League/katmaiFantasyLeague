@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import MyBracket from './pages/MyBracket';
+import { convertToSQL } from '../utils/sqlConvertTo';
 
 function BracketForm(props) {
   const [rdIdx, setRdIdx] = useState(0);
-
   const { myBracket, setMyBracket } = props;
 
-  console.log(myBracket);
-
+  // for rounds drop-down
   const roundOptions = myBracket.map((item, idx) => {
     if (idx !== myBracket.length - 1) {
       return (
@@ -18,6 +16,7 @@ function BracketForm(props) {
     }
   });
 
+  // form to select each round's winners in bracket
   const matchupSelections = myBracket[rdIdx].seeds.map((item, idx) => {
     const handleChange = (e) => {
       const newBracket = [...myBracket];
@@ -45,6 +44,7 @@ function BracketForm(props) {
 
     const pairIdx = idx;
 
+    // pair of radio buttons between each section of bracket
     const pairItems = item.teams.map((item, idx) => {
       return (
         <div key={idx}>
@@ -68,6 +68,11 @@ function BracketForm(props) {
     );
   });
 
+  const handleClick = () => {
+    const forDB = convertToSQL(myBracket);
+    console.log(forDB);
+  };
+
   return (
     <div>
       <h2 className='my-5'>My FBB Picks</h2>
@@ -78,7 +83,16 @@ function BracketForm(props) {
       >
         {roundOptions}
       </select>
-      <form>{matchupSelections}</form>
+      <form>
+        {matchupSelections}
+        <button
+          className='bg-blue-sapphire-100 hover:underline text-white font-bold py-2 px-4 rounded'
+          type='Button'
+          onClick={handleClick}
+        >
+          Submit Your Choices!
+        </button>
+      </form>
     </div>
   );
 }

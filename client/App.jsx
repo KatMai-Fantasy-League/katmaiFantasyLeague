@@ -7,10 +7,11 @@ import LayOut from './components/LayOut';
 import LoginPage from './components/pages/LoginPage';
 import MyBracket from './components/pages/MyBracket';
 import CurrentBracket from './components/pages/CurrentBracket';
-import { rounds } from './data/myCurrentRounds';
+import { bears, myPicks } from './data/myCurrentBracket';
+import { convertFromSQL } from './utils/sqlConvertFrom';
 
 function App() {
-  const [myBracket, setMyBracket] = useState(rounds);
+  const [myBracket, setMyBracket] = useState(convertFromSQL(bears, myPicks));
 
   return (
     <BrowserRouter>
