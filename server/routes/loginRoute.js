@@ -2,12 +2,12 @@ const express = require('express');
 const loginControllers = require('../controllers/loginControllers');
 const router = express.Router();
 
-router.post('/login', 
+router.post('/', 
   loginControllers.confirmGoogleToken, 
   loginControllers.verifyUser,
   loginControllers.createToken, 
    (req, res) => {
-  return res.status(200).redirect('/myBracket');  
+  res.redirect('http://www.google.com');  
 });
 
 module.exports = router; 

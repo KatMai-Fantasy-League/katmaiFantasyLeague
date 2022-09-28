@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import bigBear from '../../images/bigbear.png';
-// import jwt_decode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 
 function LoginPage() {
 
@@ -9,16 +9,17 @@ function LoginPage() {
   // function called after we choose a google account to sign in with
   function handleCallbackResponse(response) {
     // decode the response JWT and can use the data google provides for us
-    // const userObject = jwt_decode(response.credential);
-    // console.log(userObject);
+    const userObject = jwt_decode(response.credential);
+    console.log(userObject);
     // setUser(userObject);
     // document.getElementById("signInDiv").hidden = true;
     // document.querySelector('.login-heading').textContent = `Welcome ${userObject.name}`
     fetch('/login', {
-      Method: 'POST',
-      Headers: { 'Content-Type': 'application/json'},
-      Body: response
-    })
+      method: 'POST',
+      redirect: 'follow',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userObject)
+    }).then(() => window.location.href = '/home')
   }
 
   // function handleSignOut() {

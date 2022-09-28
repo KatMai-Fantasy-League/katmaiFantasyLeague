@@ -2,9 +2,10 @@ const path = require('path');
 const express = require('express');
 const dotenv = require('dotenv').config();
 
+
 const app = express();
 const PORT = 3000;
-
+app.use(express.json());
 var dir = path.join(__dirname, 'client');
 
 // serve static assets
