@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import BracketOutline from '../BracketOutline';
 import BracketForm from '../BracketForm';
 import { convertFromSQL } from '../../utils/sqlConvertFrom';
 
 function MyBracket(props) {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const getBracket = async () => {
       const response = await fetch('api/myBracket');
@@ -24,7 +26,9 @@ function MyBracket(props) {
       bracketData = await getBracket();
       bearsList = await getBears();
       setMyBracket(convertFromSQL(bearsList, bracketData));
+      setLoading(false);
     };
+
     setData();
   }, []);
 
@@ -32,12 +36,17 @@ function MyBracket(props) {
 
   return (
     <div className='mx-auto px-auto'>
-      <div className='mb-5'>
-        <h2 className='mb-5'>My FBB Bracket</h2>
-
-        <BracketOutline myBracket={myBracket} />
-      </div>
-      <BracketForm myBracket={myBracket} setMyBracket={setMyBracket} />
+      {loading ? (
+        <div>Bracket is Loading...</div>
+      ) : (
+        <>
+          <div className='mb-5'>
+            <h2 className='mb-5'>My FBB Bracket</h2>
+            <BracketOutline myBracket={myBracket} />
+          </div>
+          <BracketForm myBracket={myBracket} setMyBracket={setMyBracket} />
+        </>
+      )}
     </div>
   );
 }
