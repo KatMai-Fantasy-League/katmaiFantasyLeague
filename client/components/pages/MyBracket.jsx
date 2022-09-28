@@ -4,23 +4,28 @@ import BracketForm from '../BracketForm';
 import { convertFromSQL } from '../../utils/sqlConvertFrom';
 
 function MyBracket(props) {
-  useEffect(async () => {
-    const getBears = async () => {
+  useEffect(() => {
+    const getBracket = async () => {
       const response = await fetch('api/myBracket');
       const data = await response.json();
       return data;
     };
 
-    const getBracket = async () => {
+    const getBears = async () => {
       const response = await fetch('api/bears');
       const data = await response.json();
       return data;
     };
 
-    const bracketData = await getBracket();
-    const bearsList = await getBears();
+    let bracketData;
+    let bearsList;
 
-    setMyBracket(convertFromSQL(bearsList, bracketData));
+    const setData = async () => {
+      bracketData = await getBracket();
+      bearsList = await getBears();
+      setMyBracket(convertFromSQL(bearsList, bracketData));
+    };
+    setData();
   }, []);
 
   const { myBracket, setMyBracket } = props;

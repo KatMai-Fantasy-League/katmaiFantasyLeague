@@ -10,8 +10,27 @@ import CurrentBracket from './components/pages/CurrentBracket';
 import { bears, myPicks } from './data/myCurrentBracket';
 import { convertFromSQL } from './utils/sqlConvertFrom';
 
+const initialState = [
+  {
+    title: 'Round one',
+    seeds: [],
+  },
+  {
+    title: 'Round two',
+    seeds: [],
+  },
+  {
+    title: 'Finals',
+    seeds: [],
+  },
+  {
+    title: 'Winner',
+    seeds: [],
+  },
+];
+
 function App() {
-  const [myBracket, setMyBracket] = useState(convertFromSQL(bears, myPicks));
+  const [myBracket, setMyBracket] = useState(initialState);
 
   return (
     <BrowserRouter>
