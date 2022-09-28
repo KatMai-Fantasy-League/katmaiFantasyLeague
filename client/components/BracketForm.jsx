@@ -75,7 +75,7 @@ function BracketForm(props) {
 
   return (
     <div>
-      <h2 className='my-5'>My FBB Picks</h2>
+      <h2 className='my-5'>My Katmai Fantasy Picks</h2>
       <label className='mr-5'>Round Number</label>
       <select
         className='px-5 text-start'
