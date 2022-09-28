@@ -19,10 +19,13 @@ export const convertFromSQL = (list, picks) => {
   ];
 
   // convert picks bear ID to bear name ? can remove
+
   picks = picks.map((item) => {
     const bear1_name = list.filter((ele) => ele.id === item.bear1_id)[0].name;
     const bear2_name = list.filter((ele) => ele.id === item.bear2_id)[0].name;
-    const winner_name = list.filter((ele) => ele.id === item.winner_id)[0].name;
+    const winner_name = list.filter((ele) => ele.id === item.winner_id)[0]
+      ? list.filter((ele) => ele.id === item.winner_id)[0].name
+      : '';
     return { ...item, bear1_name, bear2_name, winner_name };
   });
 
@@ -57,7 +60,11 @@ export const convertFromSQL = (list, picks) => {
     id: 'r3p0',
     date: new Date().toDateString(),
     teams: [
-      { id: round[0].winner_id, name: round[0].winner_name, winner: true },
+      {
+        id: round[0] && round[0].winner_id,
+        name: round[0] && round[0].winner_name,
+        winner: round[0] ? true : false,
+      },
     ],
   };
 

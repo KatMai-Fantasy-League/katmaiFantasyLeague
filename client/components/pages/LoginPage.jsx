@@ -3,7 +3,6 @@ import bigBear from '../../images/bigbear.png';
 import jwt_decode from 'jwt-decode';
 
 function LoginPage() {
-
   // const [ user, setUser ] = useState({});
 
   // function called after we choose a google account to sign in with
@@ -18,8 +17,8 @@ function LoginPage() {
       method: 'POST',
       redirect: 'follow',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userObject)
-    }).then(() => window.location.href = '/home')
+      body: JSON.stringify(userObject),
+    }).then(() => (window.location.href = '/home'));
   }
 
   // function handleSignOut() {
@@ -31,26 +30,34 @@ function LoginPage() {
   useEffect(() => {
     // global google - google object coming from script in HTML
     google.accounts.id.initialize({
-      client_id: "599848243160-fh9f74vresv83v5g9oec13q73vnq1mnv.apps.googleusercontent.com",
+      client_id:
+        '599848243160-fh9f74vresv83v5g9oec13q73vnq1mnv.apps.googleusercontent.com',
       callback: handleCallbackResponse,
     });
 
     // renders the google login button
-    google.accounts.id.renderButton(
-      document.getElementById("signInDiv"),
-      { theme: "outline", size: "large", shape: "pill"}
-    )
+    google.accounts.id.renderButton(document.getElementById('signInDiv'), {
+      theme: 'outline',
+      size: 'large',
+      shape: 'pill',
+    });
   }, []);
 
   return (
     <>
-    <h1 className="login-heading">Login or Sign Up with your Google account below:</h1>
-    <img src={bigBear} alt="Chubby brown bear sitting in grass"></img>
-    <div id="signInDiv"></div>
-    {/* { Object.keys(user).length !== 0 &&
+      <h1 className='login-heading'>
+        Login or Sign Up with your Google account below:
+      </h1>
+      <img
+        className='my-5 shadow rounded'
+        src={bigBear}
+        alt='Chubby brown bear sitting in grass'
+      />
+      <div id='signInDiv'></div>
+      {/* { Object.keys(user).length !== 0 &&
       <button onClick = { () => handleSignOut() }>Sign Out</button>
     } */}
     </>
-  )
+  );
 }
 export default LoginPage;

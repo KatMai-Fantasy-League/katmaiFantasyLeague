@@ -44,7 +44,9 @@ function MyBracket(props) {
             <h2 className='mb-5 text-3xl font-bold'>
               My Katmai Fat Bear Fantasy Bracket
             </h2>
-            <BracketOutline myBracket={myBracket} />
+            <div className='mx-auto w-full'>
+              <BracketOutline myBracket={myBracket} />
+            </div>
           </div>
           <BracketForm myBracket={myBracket} setMyBracket={setMyBracket} />
         </>
